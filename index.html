@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>乐享Life</title>
+  <link rel="stylesheet" href="../css/cssReset.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <!--顶部-->
+  <div class="head">
+    <h1 class="logo">Logo</h1>
+    <div class="btn">
+       <button type="button" id="btn1">Download</button>
+    </div>
+  </div>
+  <!--轮播图-->
+  <div class="banner">
+    <div class="left-bar">
+      <h2>title</h2>
+      <ul>
+        <li><a href="#">item</a></li>
+        <li><a href="#">item</a></li>
+        <li><a href="#">item</a></li>
+        <li><a href="#">item</a></li>
+        <li><a href="#">item</a></li>
+        <li><a href="#">item</a></li>
+      </ul>
+    </div>
+  <div class="now">
+  <div id="main">
+      <div class="scollimg">
+          <img src="../image/1.jpg" alt="image/1.jpg">
+          <img src="../image/2.jpg" alt="image/2.jpg">
+          <img src="../image/3.jpg" alt="image/3.jpg">
+      </div>
+      <div class="btn">
+          <div id="btnleft"><div class="triangle"></div></div>
+          <div id="btnright"><div class="triangle"></div></div>
+      </div>
+      <div class="item">
+          <span></span>
+          <span></span>
+          <span></span>
+      </div>
+   </div>
+  </div>
+  <div class="right-bar">
+  </div>
+  </div>
+  <script type="text/javascript" src="../js/min.js"></script>
+  <script type="text/javascript">
+      window.onload=function(){
+          autoMove('img','span');
+      }
+
+      //轮播图函数
+      function autoMove(tagImg,tagSpan){
+          var imgs=document.getElementsByTagName(tagImg);
+          var spans=document.getElementsByTagName(tagSpan);
+          //每次轮播后样式
+          /*轮播到哪个位置，就对哪个位置的图片样式进行设置，首先让所有的图片样式opacity变为0，然后对移动到的位置的样式进行设置opacity为1*/
+          function InitMove(index){
+              for(var i=0;i<imgs.length;i++){
+                  imgs[i].style.opacity='0';
+                  spans[i].style.background='#ccc';
+              }
+              imgs[index].style.opacity='1';
+              spans[index].style.background='red';
+          }
+          InitMove(0);
+          var count=1;
+          function fMove(){
+              if(count==imgs.length){
+                  count=0;
+              }
+              InitMove(count);
+              count++;
+        }
+          var scollMove=setInterval(fMove,2500);
+
+          var btnleft=document.getElementById('btnleft');
+          var btnright=document.getElementById('btnright');
+          btnleft.onclick=function(){
+              clearInterval(scollMove);
+              if(count==0){
+                  count=imgs.length;
+              }
+              count--;
+              InitMove(count);
+              scollMove=setInterval(fMove,2500);
+          };
+          btnright.onclick=function(){
+              clearInterval(scollMove);
+              fMove();
+              scollMove=setInterval(fMove,2500);
+          }
+      }
+
+      $('#btn1').click(function () {
+    var tt = new Date().getTime();
+    var url = 'cn.edu.cqupt.my.apk';
+
+    /**
+     * 使用form表单来发送请求
+    * 1.method属性用来设置请求的类型——post还是get
+    * 2.action属性用来设置请求路径。
+    *
+     */
+    var form=$("<form>");//定义一个form表单
+    form.attr("style","display:none");
+    form.attr("target","");
+    form.attr("method","get");  //请求类型
+    form.attr("action",url);   //请求地址
+    $("body").append(form);//将表单放置在web中
+
+    　　/**
+         * input标签主要用来传递请求所需的参数：
+         * name属性是传递请求所需的参数名.
+         * value属性是传递请求所需的参数值.
+         * 当为get类型时，请求所需的参数用input标签来传
+    　　　*/
+    var input1=$("<input>");
+    input1.attr("type","hidden");
+    input1.attr("name","tt");
+    input1.attr("value",tt);
+    form.append(input1);
+
+    var input2=$("<input>");
+    input2.attr("type","hidden");
+    form.append(input2);
+
+    form.submit();
+})
+  </script>
+</body>
+</html>
